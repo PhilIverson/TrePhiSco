@@ -1,15 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const procedureSchema = new Schema ({
-    description: {
+const procedureSchema = new Schema({
+    "Bill Item ID": {
+        type: String,
+        required: false
+    },
+    "Charge Description": {
         type: String,
         required: true
     },
-    list: {
-        type: Object,
+    Price: {
+        type: Number,
         required: true
     },
+    Hospital: {
+        type: String,
+        required: true
+    }
 
 })
 
