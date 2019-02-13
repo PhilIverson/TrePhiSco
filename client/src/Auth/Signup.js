@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class LoginForm extends Component {
+export default class Signup extends Component {
     constructor() {
         super();
         this.state = {
@@ -24,16 +24,16 @@ export default class LoginForm extends Component {
     }
 
     handleSubmit = (e) => {
-        e.preventDevault();
-        this.props.login(this.state)
+        e.preventDefault();
+        this.props.signup(this.state)
             .then(() => this.props.history.push("/users"))
     }
-
+    
     render() {
         return (
             <div className="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Log In</h3>
+                    <h3>Sign up</h3>
                     <input
                         onChange={this.handleChange}
                         value={this.state.username}
@@ -48,11 +48,8 @@ export default class LoginForm extends Component {
                         type="password"
                         placeholder="Password"
                     />
-                    <button type="submit">Submit</button>
-                </form>
-                <div className="motto">
-                    <p>Providing you with the tool to make informed Health decisions for You and Yours</p>
-                </div>
+                    <button type="submit">Create Account</button>
+                </form>                
             </div>
         )
     }
