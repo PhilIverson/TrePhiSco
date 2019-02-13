@@ -1,6 +1,6 @@
 const express = require('express');
 const procedureRouter = express.Router();
-const Procedure = require("../models/procedure");
+const Procedure = require("../models/procedure.model");
 
 procedureRouter.get("/", (req, res, next) => {
     Procedure.find({ user: req.user._id }, (err, procedures) => {
