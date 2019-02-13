@@ -14,6 +14,9 @@ function Navbar(props) {
                 <Link to="/Procedures">Procedures</Link>
             </div>
             <div className="nav-link">
+                <Link to="/Search">Search</Link>
+            </div>
+            <div className="nav-link">
                 <button onClick={() => props.logout()}>Logout</button>
             </div>
 
