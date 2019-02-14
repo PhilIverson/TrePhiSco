@@ -1,9 +1,9 @@
 const express = require('express');
 const procedureRouter = express.Router();
-const Procedure = require("../models/procedure.model");
+const Procedure = require("../models/procedure");
 
 procedureRouter.get("/", (req, res, next) => {
-    Procedure.find({ user: req.user._id }, (err, procedures) => {
+    Procedure.find((err, procedures) => {
         if (err) {
             res.status(500);
             return next(err);
@@ -14,7 +14,7 @@ procedureRouter.get("/", (req, res, next) => {
 
 procedureRouter.post("/", (req, res, next) => {
     const procedure = new Procedure(req.body);
-    procedure.user = req.user._id;
+    // procedure.user = req.user._id;
     procedure.save(function (err, newProcedure) {
         if (err) {
             res.status(500);

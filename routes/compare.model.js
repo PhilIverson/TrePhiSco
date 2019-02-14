@@ -1,6 +1,6 @@
 const express = require('express');
 const compareRouter = express.Router();
-const Compare = require("../models/compare.model");
+const Compare = require("../models/compare");
 
 compareRouter.get("/", (req, res, next) => {
     Compare.find({ user: req.user._id }, (err, compares) => {
