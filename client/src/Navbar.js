@@ -19,7 +19,6 @@ function Navbar(props) {
             <div className="nav-link">
                 <button onClick={() => props.logout()}>Logout</button>
             </div>
-
         </nav>
     )
 }
