@@ -3,14 +3,22 @@ const procedureRouter = express.Router();
 const Procedure = require("../models/procedure");
 
 procedureRouter.get("/", (req, res, next) => {
-    Procedure.find((err, procedures) => {
-        if (err) {
+    //     Procedure.find((err, procedure) => {
+    //         if (err) {
+    //             res.status(500);
+    //             return next(err);
+    //         }
+    //         return res.send(procedure);
+    //     });
+    // });
+    Procedure.find(req.query)
+        // .populate('procedure')
+        .then(procedureCollection => res.status(200).send(procedureCollection))
+        .catch(err => {
             res.status(500);
-            return next(err);
-        }
-        return res.send(procedures);
-    });
-});
+            next(err)
+        })
+})
 
 procedureRouter.post("/", (req, res, next) => {
     const procedure = new Procedure(req.body);
@@ -25,7 +33,7 @@ procedureRouter.post("/", (req, res, next) => {
 });
 
 procedureRouter.get("/:procedureId", (req, res, next) => {
-    Procedure.findOne({ _id: req.params.procedureId, user: req.user._id }, (err, procedure) => {
+    Procedure.findOne({ _id: req.params.procedureId}, (err, procedure) => {
         if (err) {
             res.status(500);
             return next(err);
@@ -54,7 +62,7 @@ procedureRouter.put("/:procedureId", (req, res, next) => {
 });
 
 procedureRouter.delete("/:procedureId", (req, res, next) => {
-    Procedure.findOneAndRemove({ _id: req.params.procedureId, user: req.user._id }, (err, procedure) => {
+    Procedure.findOneAndRemove({ _id: req.params.procedureId, user: req.user._id }, (err, procedure) => { 
         if (err) {
             res.status(500);
             return next(err);
