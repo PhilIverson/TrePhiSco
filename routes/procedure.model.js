@@ -3,21 +3,23 @@ const procedureRouter = express.Router();
 const Procedure = require("../models/procedure");
 
 procedureRouter.get("/", (req, res, next) => {
-    //     Procedure.find((err, procedure) => {
-    //         if (err) {
-    //             res.status(500);
-    //             return next(err);
-    //         }
-    //         return res.send(procedure);
-    //     });
-    // });
-    Procedure.find(req.query)
-        // .populate('procedure')
-        .then(procedureCollection => res.status(200).send(procedureCollection))
+    const { limit, cursor, keyword, billing_id } = req.query;
+    const query = {};
+    if (cursor) query._id = { $lt: cursor };
+    if (keyword) query.$text = ({ $search: keyword });
+    // if (billing_id) query.$billing_id = ({ $search: billing_id.toString() });
+    Procedure.find(query)
+        .sort({ _id: -1 })
+        .limit(+limit)
+        .then(procedures => {
+            const cursor = procedures.length ? procedures[procedures.length - 1]._id : null
+            return res.send({ procedures, cursor })
+        })
         .catch(err => {
             res.status(500);
             next(err)
         })
+
 })
 
 procedureRouter.post("/", (req, res, next) => {
@@ -33,7 +35,7 @@ procedureRouter.post("/", (req, res, next) => {
 });
 
 procedureRouter.get("/:procedureId", (req, res, next) => {
-    Procedure.findOne({ _id: req.params.procedureId}, (err, procedure) => {
+    Procedure.findOne({ _id: req.params.procedureId }, (err, procedure) => {
         if (err) {
             res.status(500);
             return next(err);
@@ -62,7 +64,7 @@ procedureRouter.put("/:procedureId", (req, res, next) => {
 });
 
 procedureRouter.delete("/:procedureId", (req, res, next) => {
-    Procedure.findOneAndRemove({ _id: req.params.procedureId, user: req.user._id }, (err, procedure) => { 
+    Procedure.findOneAndRemove({ _id: req.params.procedureId, user: req.user._id }, (err, procedure) => {
         if (err) {
             res.status(500);
             return next(err);

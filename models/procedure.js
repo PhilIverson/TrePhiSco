@@ -20,5 +20,9 @@ const procedureSchema = new Schema({
     }
 
 })
+procedureSchema.index ({
+    '$**': 'text'
+})
+
 
 module.exports = mongoose.model("Procedure", procedureSchema)
