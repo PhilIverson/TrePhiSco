@@ -8,9 +8,9 @@ function SearchForm({ getResults }) {
             inputs={{
                 results: ''
             }}>
-            {({ handleSubmit, inputs }) => (
+            {({ handleSubmit, handleChange, inputs }) => (
                 <form>
-                    <input value={inputs.results} onChange={handleSubmit} type='text' name='results' placeholder='Search' />
+                    <input value={inputs.results} onChange={handleChange} type='text' name='results' placeholder='Search' />
 
                 </form>
 
