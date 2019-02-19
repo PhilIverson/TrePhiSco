@@ -3,6 +3,7 @@ import { withSearchContext } from './SearchProvider';
 import SearchContainer from './SearchContainer';
 
 function SearchForm(props) {
+    const resultList = 
     return (
         <SearchContainer submit={(inputs) => props.updateSearch(inputs.searchTerm)}
             inputs={{
@@ -15,6 +16,11 @@ function SearchForm(props) {
                 </form>
             )}
         </SearchContainer>
+        <ul>
+            <li>
+                
+            </li>
+        </ul>
     )
 }
 
