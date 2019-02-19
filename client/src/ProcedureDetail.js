@@ -1,17 +1,15 @@
 import React from 'react'
 
 function ProcedureDetail({ description, bill_item_id, price, hospital }) {
-
-
     return (
-        <div>
+        
             <div>
-                <h5>Description: {description}</h5>
+                <p>Description: {description}</p>
                 <p >Bill Item ID: {bill_item_id}</p>
                 <p>Price: ${price}</p>
-                <p>Flight Number: {hospital}</p>
+                <p>Hospital: {hospital}</p>
             </div>
-        </div>
+        
     )
 }
 

@@ -2,8 +2,6 @@ import React, { Component, createContext } from 'react'
 import axios from 'axios'
 const { Consumer, Provider } = createContext()
 
-
-
 export default class SearchProvider extends Component {
     constructor() {
         super();
@@ -16,12 +14,10 @@ export default class SearchProvider extends Component {
     updateSearchTerm = (searchTerm) => {
         this.setState({
             searchTerm: searchTerm
-            
         }, this.getResults)
     }
     getResults(url) {
         return axios.get(`/api/procedure?limit=50&keyword=${this.state.searchTerm}`)
-
             .then(response =>
                 this.setState({
                     results: response.data,
