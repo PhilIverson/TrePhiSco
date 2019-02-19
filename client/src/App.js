@@ -1,12 +1,16 @@
 import React from 'react'
 import Login from "./Auth/Login"
+import SearchForm from "./SearchForm"
+import SearchProvider from './SearchProvider';
+import { withSearchContext } from './SearchProvider';
 
-function App() {
+function App(props) {
+  
   return (
     <div className="app-wrapper">
-      <Login />
+      <SearchForm />
     </div>
   )
 }
 
-export default App
+export default withSearchContext(App)

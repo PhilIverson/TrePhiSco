@@ -1,11 +1,13 @@
 const express = require('express');
 var mongoose = require('mongoose');
+const morgan = require("morgan")
 
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
+app.use(morgan('dev'))
 
 app.use('/api/compare', require('./routes/compare.model'));
 app.use('/api/procedure', require('./routes/procedure.model'));
