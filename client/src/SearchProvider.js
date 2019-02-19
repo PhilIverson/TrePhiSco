@@ -3,9 +3,6 @@ import axios from 'axios'
 const { Consumer, Provider } = createContext()
 
 
-// import {withSearchContext} from './Search'
-
-
 
 export default class SearchProvider extends Component {
     constructor() {
@@ -15,16 +12,23 @@ export default class SearchProvider extends Component {
             searchTerm: ""
         }
     }
+
+    updateSearchTerm = (searchTerm) => {
+        this.setState({
+            searchTerm: searchTerm
+            
+        }, this.getResults)
+    }
     getResults(url) {
-        // return axios.get(`/procedure?limit=50&keyword=${this.searchTerm}`)
-        return axios.get(`/api/procedure?limit=50`)
+        return axios.get(`/api/procedure?limit=50&keyword=${this.state.searchTerm}`)
+
             .then(response =>
                 this.setState({
                     results: response.data,
                 }))
-                .catch(err => this.setState ({
-                    errMsg: `You're Data Is Unavailable`
-                }))
+            .catch(err => this.setState({
+                errMsg: `You're Data Is Unavailable`
+            }))
     }
 
     componentDidMount() {
@@ -35,17 +39,19 @@ export default class SearchProvider extends Component {
     render() {
         const value = {
             ...this.state,
-            getResults: this.getResults
+            getResults: this.getResults,
+            handleSubmit: this.handleSubmit,
+            handleChange: this.handleChange,
+            updateSearch: this.updateSearchTerm
         }
         return (
             <Provider value={value}>
+                
                 {this.props.children}
             </Provider>
         )
     }
 }
-
-// export default withSearchContext(SearchProvider)
 
 export const withSearchContext = C => props => (
     <Consumer>

@@ -2,23 +2,20 @@ import React from 'react'
 import { withSearchContext } from './SearchProvider';
 import SearchContainer from './SearchContainer';
 
-function SearchForm({ getResults }) {
+function SearchForm(props) {
     return (
-        <SearchContainer submit={getResults}
+        <SearchContainer submit={(inputs) => props.updateSearch(inputs.searchTerm)}
             inputs={{
-                results: ''
+                searchTerm: ''
             }}>
             {({ handleSubmit, handleChange, inputs }) => (
-                <form>
-                    <input value={inputs.results} onChange={handleChange} type='text' name='results' placeholder='Search' />
-
+                <form onSubmit={handleSubmit}>
+                    <input value={inputs.searchTerm} onChange={handleChange} type='text' name='searchTerm' placeholder='Search' />
+                    <button>Go</button>
                 </form>
-
-
             )}
         </SearchContainer>
     )
 }
-
 
 export default withSearchContext(SearchForm)

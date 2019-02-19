@@ -23,6 +23,7 @@ export default class SearchContainer extends Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.submit(this.state.inputs);
+
     }
 
     render() {
