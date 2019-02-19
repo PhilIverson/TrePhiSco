@@ -5,16 +5,13 @@ const compareSchema = new Schema ({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: false
     },
-    description: {
-        type: String,
-        required: true
-    },
-    list: {
-        type: Object,
-        required: true
-    },
+   procedure: {
+       type: Schema.Types.ObjectId,
+       ref: 'Procedure',
+       required: true
+   }
 
 })
 

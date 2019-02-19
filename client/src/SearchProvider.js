@@ -7,7 +7,8 @@ export default class SearchProvider extends Component {
         super();
         this.state = {
             results: [],
-            searchTerm: ""
+            searchTerm: "",
+            savedProcedures: []
         }
     }
 
@@ -26,10 +27,20 @@ export default class SearchProvider extends Component {
                 errMsg: `You're Data Is Unavailable`
             }))
     }
-
-    componentDidMount() {
-        this.getResults('/api/procedure')
+    saveProcedure = (procedure) => {
+        //make a POST to your server containing the procedure id
+        // axios.post(url, {procedure})
+        return axios.post('/api/compare/', { procedure })
+            //.then(response => )
+            .then(response => this.setState(ps => ({
+                savedProcedures: [...ps.savedProcedures, procedure]
+            })))
     }
+
+
+    // componentDidMount() {
+    //     this.getResults('/api/procedure')
+    // }
 
 
     render() {
@@ -38,11 +49,12 @@ export default class SearchProvider extends Component {
             getResults: this.getResults,
             handleSubmit: this.handleSubmit,
             handleChange: this.handleChange,
-            updateSearch: this.updateSearchTerm
+            updateSearch: this.updateSearchTerm,
+            saveProcedure: this.saveProcedure
         }
         return (
             <Provider value={value}>
-                
+
                 {this.props.children}
             </Provider>
         )

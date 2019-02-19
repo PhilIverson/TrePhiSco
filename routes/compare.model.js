@@ -1,6 +1,8 @@
 const express = require('express');
 const compareRouter = express.Router();
 const Compare = require("../models/compare");
+const Procedure = require("../models/procedure");
+
 
 compareRouter.get("/", (req, res, next) => {
     Compare.find({ user: req.user._id }, (err, compares) => {
@@ -14,13 +16,21 @@ compareRouter.get("/", (req, res, next) => {
 
 compareRouter.post("/", (req, res, next) => {
     const compare = new Compare(req.body);
-    compare.user = req.user._id;
+    // compare.user = req.user._id;
     compare.save(function (err, newCompare) {
         if (err) {
             res.status(500);
             return next(err);
         }
-        return res.status(201).send(newCompare);
+        Procedure.findById(newCompare.procedure)
+            .then(foundProcedure => {
+                return res.status(201).send(foundProcedure);
+            })
+            .catch(err => {
+                res.status(500);
+                next(err)
+            })
+       
     });
 });
 
