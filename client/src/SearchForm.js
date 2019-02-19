@@ -1,9 +1,11 @@
 import React from 'react'
 import { withSearchContext } from './SearchProvider';
 import SearchContainer from './SearchContainer';
+import ProcedureList from './ProcedureList';
 
 function SearchForm(props) {
     return (
+        <div>
         <SearchContainer submit={(inputs) => props.updateSearch(inputs.searchTerm)}
             inputs={{
                 searchTerm: ''
@@ -14,8 +16,11 @@ function SearchForm(props) {
                     <button>Go</button>
                 </form>
             )}
-        </SearchContainer>
+        </SearchContainer> 
+        <ProcedureList results={props.results}/>
+        </div>
     )
+
 }
 
 export default withSearchContext(SearchForm)
