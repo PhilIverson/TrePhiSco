@@ -8,7 +8,8 @@ export default class SearchProvider extends Component {
         this.state = {
             results: [],
             searchTerm: "",
-            savedProcedures: []
+            savedProcedures: [],
+            gotProcedures: []
         }
     }
 
@@ -28,19 +29,45 @@ export default class SearchProvider extends Component {
             }))
     }
     saveProcedure = (procedure) => {
-        //make a POST to your server containing the procedure id
-        // axios.post(url, {procedure})
         return axios.post('/api/compare/', { procedure })
-            //.then(response => )
-            .then(response => this.setState(ps => ({
-                savedProcedures: [...ps.savedProcedures, procedure]
-            })))
+            .then(response => {
+                if (response.status === 204) return;
+                this.setState(ps => ({
+                    savedProcedures: [...ps.savedProcedures, response.data]
+                }))
+            })
+            .catch(err => console.log(err));
+    }
+
+    getComparisons() {
+        return axios.get(`/api/compare/`)
+            .then(response =>
+                this.setState({
+                    savedProcedures: response.data,
+                }))
+            .catch(err => this.setState({
+                errMsg: `You're Data Is Unavailable`
+            }))
+    }
+
+    delSaved = (id) => {
+       return axios.delete(`/api/compare/${id}`)
+            .then(response => {
+                this.setState(prevState => {
+                    const updatedSave = prevState.savedProcedures.filter(x => {
+                        return x.compareId !== id
+                    })
+                    return { savedProcedures: updatedSave }
+                })
+                return response;
+            })
     }
 
 
-    // componentDidMount() {
-    //     this.getResults('/api/procedure')
-    // }
+
+    componentDidMount() {
+        this.getComparisons();
+    }
 
 
     render() {
@@ -50,11 +77,11 @@ export default class SearchProvider extends Component {
             handleSubmit: this.handleSubmit,
             handleChange: this.handleChange,
             updateSearch: this.updateSearchTerm,
-            saveProcedure: this.saveProcedure
+            saveProcedure: this.saveProcedure,
+            delSaved: this.delSaved
         }
         return (
             <Provider value={value}>
-
                 {this.props.children}
             </Provider>
         )

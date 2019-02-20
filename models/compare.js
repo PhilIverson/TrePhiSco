@@ -10,9 +10,8 @@ const compareSchema = new Schema ({
    procedure: {
        type: Schema.Types.ObjectId,
        ref: 'Procedure',
-       required: true
+       required: true,
    }
-
 })
 
 module.exports = mongoose.model("Compare", compareSchema)

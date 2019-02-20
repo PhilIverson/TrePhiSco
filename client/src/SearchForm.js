@@ -4,6 +4,7 @@ import SearchContainer from './SearchContainer';
 import ProcedureList from './ProcedureList';
 
 function SearchForm(props) {
+    // console.log(props.savedProcedures)
     return (
         <div>
         <SearchContainer submit={(inputs) => props.updateSearch(inputs.searchTerm)}
