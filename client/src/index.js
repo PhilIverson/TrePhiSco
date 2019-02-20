@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import SearchProvider from './SearchProvider';
+import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
-    <SearchProvider>
-    <App />
-    </SearchProvider>
+    <BrowserRouter>
+        <SearchProvider>
+            <App />
+        </SearchProvider>
+    </BrowserRouter>
     ,
     document.getElementById('root'));
 
