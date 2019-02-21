@@ -14,17 +14,17 @@ import ProtectedRoute from "./Auth/ProtectedRoute";
 function App(props) {
   
   return (
-    <div className="app-wrapper">
+    <div>
       <Navbar />
+      <div className="app-wrapper">
       <Switch>
         <ProtectedRoute path="/Procedures" component={SavedList}/>
         <ProtectedRoute path="/Search" component={SearchForm}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/login" component={Login}/>
         <Route exact path="/" render={() => <Redirect to="/Procedures"/>}/>
-
-
       </Switch>
+      </div>
     </div>
   )
 }

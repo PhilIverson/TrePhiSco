@@ -2,7 +2,6 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body{
-    position: relative;
     font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
@@ -42,7 +41,6 @@ a:hover{
     padding-bottom: 0;
     padding-left: .5em;
     background: #d2e9f2;
-
 }
 
 .search-container:hover{
@@ -57,7 +55,10 @@ a:hover{
 }
 
 .price-div{
-    margin-left:auto; margin-right:0;}
+    margin-left:auto; 
+    margin-right:0;
+}
+
 .price-search{
     float: right
 }
