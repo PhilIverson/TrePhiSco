@@ -14,7 +14,7 @@ function SearchForm(props) {
             {({ handleSubmit, handleChange, inputs }) => (
                 <form onSubmit={handleSubmit}>
                     <input value={inputs.searchTerm} onChange={handleChange} type='text' name='searchTerm' placeholder='Search' />
-                    <button>Go</button>
+                    <button className="go">Go</button>
                 </form>
             )}
         </SearchContainer> 

@@ -1,0 +1,76 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+main{
+    margin: 0 auto;
+}
+
+body{
+    position: relative;
+    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    justify-content: center;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+input[type=text]:focus, textarea:focus {
+    border: 1px solid black;
+  }
+
+a:hover{
+    color: blue;
+    transform: scale(2.9);
+    transition: .2s ease-out;
+}
+
+.logout:hover{
+    color: #ff3030;
+    background-color: grey;
+    text-shadow: .0 .1px silver;
+}
+
+.go{
+    background-color: #3ad13f;
+}
+
+.procedure-container{
+    border: 1px solid #2eb28f;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    width: 50em;
+    border-radius: .5%;
+    padding: 2em;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: .5em;
+    background: #d2e9f2;
+
+}
+
+.procedure-container:hover{
+    transition: 0.2s ease-out;
+    border: 2px solid #28a382;
+    cursor: pointer;
+}
+
+.procedure-container:focus{
+    background-color: #d2e9f2;
+}
+
+.price-saved{
+    color: #2492f2;
+}
+
+.del{
+    background: #ff3030
+}
+
+.x-div{
+    margin-left:auto; margin-right:0;}
+.y-div{
+    margin-left:auto; margin-right:0;}

@@ -1,20 +1,18 @@
 import React from 'react'
 import { withSearchContext } from './SearchProvider';
+import "../src/styles/procedureDetail.css"
 
 function ProcedureDetail({ _id, description, bill_item_id, price, hospital, saveProcedure }) {
-    // let savedProcedure = {
-    //     description,
-    //     bill_item_id,
-    //     price,
-    //     hospital
-    // };
-
     return (
-        <div onClick={e => saveProcedure(_id)}>
-            <p>Description: {description}</p>
-            <p>Bill Item ID: {bill_item_id}</p>
-            <p>Price: ${price}</p>
-            <p>Hospital: {hospital}</p>
+        <div className="search-container"onClick={e => saveProcedure(_id)}>
+            <div className="rest-div">
+                <p className="description search">Description: {description}</p>
+                <p className="bill search">Bill Item ID: {bill_item_id}</p>
+                <p className="hospital search">Hospital: {hospital}</p>
+            </div>
+            <div className="price-div">
+                <p className="price-saved">Price: ${price}</p>
+            </div>
         </div>
     )
 }
