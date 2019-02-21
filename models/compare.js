@@ -5,7 +5,7 @@ const compareSchema = new Schema ({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: false
+        required: true
     },
    procedure: {
        type: Schema.Types.ObjectId,

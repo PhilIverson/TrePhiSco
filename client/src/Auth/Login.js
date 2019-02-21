@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { withSearchContext } from '../SearchProvider';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         }
     }
 
@@ -19,14 +21,20 @@ export default class LoginForm extends Component {
     clearInputs = () => {
         this.setState({
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
+
+
         })
     }
 
     handleSubmit = (e) => {
-        e.preventDevault();
+        e.preventDefault();
         this.props.login(this.state)
-            .then(() => this.props.history.push("/users"))
+            .then(() => this.props.history.push("/Search"))
+            .catch(err => {
+                this.setState({ errorMessage: err.response.data.message })
+            })
     }
 
     render() {
@@ -37,7 +45,7 @@ export default class LoginForm extends Component {
                     <input
                         onChange={this.handleChange}
                         value={this.state.username}
-                        name="email"
+                        name="username"
                         type="text"
                         placeholder="Email"
                     />
@@ -57,3 +65,5 @@ export default class LoginForm extends Component {
         )
     }
 }
+
+export default withSearchContext(LoginForm)
