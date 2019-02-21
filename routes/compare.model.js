@@ -3,12 +3,12 @@ const compareRouter = express.Router();
 const Compare = require("../models/compare");
 const Procedure = require("../models/procedure");
 
-const addCompareId = compareId => procedure => ({...procedure.toObject(), compareId})
+const addCompareId = compareId => procedure => ({ ...procedure.toObject(), compareId })
 
 
 compareRouter.get("/", (req, res, next) => {
     // Compare.find({ user: req.user._id }, (err, compares) => {
-    Compare.find((err, compares) => {
+    Compare.find({ user: req.user._id }, (err, compares) => {
         if (err) {
             res.status(500);
             return next(err);
@@ -26,9 +26,9 @@ compareRouter.get("/", (req, res, next) => {
 
 compareRouter.post("/", (req, res, next) => {
     const compare = new Compare(req.body);
-    // compare.user = req.user._id;
+    compare.user = req.user._id;
     //add user after procedure
-    Compare.findOne({ procedure: req.body.procedure })
+    Compare.findOne({ procedure: req.body.procedure, user: req.user._id })
         .then(found => {
             if (found) throw Error('Procedure already saved');
             return compare.save()
@@ -47,7 +47,7 @@ compareRouter.post("/", (req, res, next) => {
 
 compareRouter.get("/:compareId", (req, res, next) => {
     // user: req.user._id 
-    Compare.findOne({ _id: req.params.compareId}, (err, compare) => {
+    Compare.findOne({ _id: req.params.compareId, user: req.user._id }, (err, compare) => {
         if (err) {
             res.status(500);
             return next(err);
@@ -76,7 +76,7 @@ compareRouter.put("/:compareId", (req, res, next) => {
 });
 
 compareRouter.delete("/:compareId", (req, res, next) => {
-    Compare.findOneAndRemove({ _id: req.params.compareId}, (err, compare) => {
+    Compare.findOneAndRemove({ _id: req.params.compareId, user: req.user._id }, (err, compare) => {
         if (err) {
             res.status(500);
             return next(err);

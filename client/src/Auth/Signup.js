@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import {withSearchContext} from '../SearchProvider'
 
-export default class Signup extends Component {
+class Signup extends Component {
     constructor() {
         super();
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         }
     }
 
@@ -19,14 +21,15 @@ export default class Signup extends Component {
     clearInputs = () => {
         this.setState({
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.signup(this.state)
-            .then(() => this.props.history.push("/users"))
+            .then(() => this.props.history.push("/Search"))
     }
     
     render() {
@@ -37,7 +40,7 @@ export default class Signup extends Component {
                     <input
                         onChange={this.handleChange}
                         value={this.state.username}
-                        name="email"
+                        name="username"
                         type="text"
                         placeholder="Email"
                     />
@@ -54,3 +57,5 @@ export default class Signup extends Component {
         )
     }
 }
+
+export default withSearchContext(Signup)

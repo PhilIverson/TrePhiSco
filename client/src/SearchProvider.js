@@ -1,6 +1,15 @@
 import React, { Component, createContext } from 'react'
 import axios from 'axios'
 const { Consumer, Provider } = createContext()
+const protectedAxios = axios.create();
+
+protectedAxios.interceptors.request.use((config)=>{
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+})
+
+// const AppContext = React.createContext();
 
 export default class SearchProvider extends Component {
     constructor() {
@@ -9,6 +18,8 @@ export default class SearchProvider extends Component {
             results: [],
             searchTerm: "",
             savedProcedures: [],
+            user: JSON.parse(localStorage.getItem("user")) || {},
+            token: localStorage.getItem("token") || "",
             gotProcedures: []
         }
     }
@@ -19,7 +30,7 @@ export default class SearchProvider extends Component {
         }, this.getResults)
     }
     getResults(url) {
-        return axios.get(`/api/procedure?limit=50&keyword=${this.state.searchTerm}`)
+        return protectedAxios.get(`/api/procedure?limit=50&keyword=${this.state.searchTerm}`)
             .then(response =>
                 this.setState({
                     results: response.data,
@@ -29,7 +40,7 @@ export default class SearchProvider extends Component {
             }))
     }
     saveProcedure = (procedure) => {
-        return axios.post('/api/compare/', { procedure })
+        return protectedAxios.post('/api/compare/', { procedure })
             .then(response => {
                 if (response.status === 204) return;
                 this.setState(ps => ({
@@ -40,7 +51,7 @@ export default class SearchProvider extends Component {
     }
 
     getComparisons() {
-        return axios.get(`/api/compare/`)
+        return protectedAxios.get(`/api/compare/`)
             .then(response =>
                 this.setState({
                     savedProcedures: response.data,
@@ -51,7 +62,7 @@ export default class SearchProvider extends Component {
     }
 
     delSaved = (id) => {
-       return axios.delete(`/api/compare/${id}`)
+       return protectedAxios.delete(`/api/compare/${id}`)
             .then(response => {
                 this.setState(prevState => {
                     const updatedSave = prevState.savedProcedures.filter(x => {
@@ -63,7 +74,46 @@ export default class SearchProvider extends Component {
             })
     }
 
+    signup = (userInfo) => {
+        return protectedAxios.post("/auth/signup", userInfo)
+            .then(response => {
+                const { user, token } = response.data
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
+                this.setState({
+                    user,
+                    token
+                });
+                return response;
+            })
+    }
 
+    login = (credentials) => {
+        return axios.post("/auth/login", credentials)
+            .then(response => {
+                const { token, user } = response.data;
+                localStorage.setItem("token", token)
+                localStorage.setItem("user", JSON.stringify(user))
+                this.setState({
+                    user,
+                    token
+                });
+                this.getComparisons();
+                return response;
+            })
+    }
+
+    logout = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        this.setState({
+            results: [],
+            searchTerm: "",
+            savedProcedures: [],
+            user: {},
+            token: ""
+        })
+    }
 
     componentDidMount() {
         this.getComparisons();
@@ -78,7 +128,10 @@ export default class SearchProvider extends Component {
             handleChange: this.handleChange,
             updateSearch: this.updateSearchTerm,
             saveProcedure: this.saveProcedure,
-            delSaved: this.delSaved
+            delSaved: this.delSaved,
+            signup: this.signup,
+            login: this.login,
+            logout: this.logout
         }
         return (
             <Provider value={value}>
