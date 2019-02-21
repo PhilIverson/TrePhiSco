@@ -4,8 +4,8 @@ import {withSearchContext} from './SearchProvider'
 
 function Navbar(props) {
     return (
-
         <nav className="navbar-wrapper">
+            <h2 className="nav-title">TrePhisCo</h2>
             {
                 !props.token ?
                     <React.Fragment>
@@ -25,10 +25,9 @@ function Navbar(props) {
                             <Link to="/Search">Search</Link>
                         </div>
                         <div className="nav-link">
-                            <button onClick={() => props.logout()}>Logout</button>
+                            <button className="logout"onClick={() => props.logout()}>Logout</button>
                         </div>
                     </React.Fragment>
-
             }
         </nav>
 
