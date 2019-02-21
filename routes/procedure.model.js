@@ -3,10 +3,11 @@ const procedureRouter = express.Router();
 const Procedure = require("../models/procedure");
 
 procedureRouter.get("/", (req, res, next) => {
-    const { limit, cursor, keyword, billing_id } = req.query;
-    const query = {};
+    const { limit, cursor, keyword } = req.query;
+    let query = {};
     if (cursor) query._id = { $lt: cursor };
-    if (keyword) query.$text = ({ $search: keyword });
+    // if (keyword) query.$text = ({ $search: keyword });
+    if (keyword) query = ({ 'description': { '$regex': keyword, '$options': 'i' } });
     // if (billing_id) query.$billing_id = ({ $search: billing_id.toString() });
     Procedure.find(query)
         .sort({ _id: -1 })
