@@ -2,6 +2,8 @@ import React from 'react'
 import Login from "./Auth/Login"
 import { Route, Switch, Redirect } from "react-router-dom";
 
+import "./styles/app.css"
+
 import SearchForm from "./SearchForm"
 import Navbar from './Navbar';
 import { withSearchContext } from './SearchProvider';
