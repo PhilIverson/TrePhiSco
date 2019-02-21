@@ -30,7 +30,7 @@ export default class SearchProvider extends Component {
         }, this.getResults)
     }
     getResults(url) {
-        return protectedAxios.get(`/api/procedure?limit=50&keyword=${this.state.searchTerm}`)
+        return protectedAxios.get(`/api/procedure?limit=500&keyword=${this.state.searchTerm}`)
             .then(response =>
                 this.setState({
                     results: response.data,

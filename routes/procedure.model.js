@@ -2,12 +2,25 @@ const express = require('express');
 const procedureRouter = express.Router();
 const Procedure = require("../models/procedure");
 
+const keyWordToRegex = keyword => {
+    const interpolated = keyword.split(' ')
+        .map(s => {
+            return `(?=.*${s})`
+        })
+        .join('');
+    return `^${interpolated}.*$`
+}
+
+
 procedureRouter.get("/", (req, res, next) => {
-    const { limit, cursor, keyword, billing_id } = req.query;
-    const query = {};
+    const { limit, cursor, keyword } = req.query;
+    let query = {};
     if (cursor) query._id = { $lt: cursor };
-    if (keyword) query.$text = ({ $search: keyword });
-    // if (billing_id) query.$billing_id = ({ $search: billing_id.toString() });
+    // if (keyword) query.$text = ({ $search: keyword });
+    if (keyword) query = ({ 'description': { '$regex': keyWordToRegex(keyword), '$options': 'i' } });
+    // if (keyword) query = ({$or: [{ 'description': { '$regex': keyWordToRegex(keyword), '$options': 'i' } },
+    //                             { 'hospital': { '$regex': keyWordToRegex(keyword), '$options': 'i' } }]});
+
     Procedure.find(query)
         .sort({ _id: -1 })
         .limit(+limit)
