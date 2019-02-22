@@ -1,9 +1,22 @@
+:root{
+    --mainTan: #c09f80;
+    --lightBlue: #009ffd;
+    --mainWhite: #f3f3f3;
+    --mainDark: #232528;
+    --mainYellow:  #ffa400;
+    --lightGreen: #98fb98;
+    --oxBlood: #76323f;
+    --mainBlue: #5d7d9a;
+  }
+  
 .app-wrapper{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: left;
     min-height: 100vh;
+    background: var(--mainBlue) !important;
+    color:  var(--mainDark) !important;
 }
-

@@ -1,11 +1,15 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import {withSearchContext} from './SearchProvider'
+import imc from './images/UofU.jpg'
+
 
 function Navbar(props) {
     return (
-        <nav className="navbar-wrapper">
-            <h2 className="nav-title">TrePhisCo</h2>
+        <nav className="app-wrapper">
+        <h2 className="nav-title align-items-center font-size: 32px">TrePhisCo</h2>
+        
+        <img src={imc} className="nav-title" />   
             {
                 !props.token ?
                     <React.Fragment>
@@ -35,3 +39,5 @@ function Navbar(props) {
 }
 
 export default withSearchContext(Navbar)
+
+
