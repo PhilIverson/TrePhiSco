@@ -7,7 +7,7 @@ import imc from './images/UofU.jpg'
 function Navbar(props) {
     return (
         <nav className="app-wrapper">
-        <h2 className="nav-title align-items-center font-size: 32px">TrePhisCo</h2>
+        <h2 className="nav-title align-items-center">TrePhisCo</h2>
         
         <img src={imc} className="nav-title" />   
             {
