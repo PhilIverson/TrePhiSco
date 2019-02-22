@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {withSearchContext} from '../SearchProvider'
+import imc from '../images/UofU.jpg'
 
 class Signup extends Component {
     constructor() {
@@ -36,7 +37,9 @@ class Signup extends Component {
         return (
             <div className="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Sign up</h3>
+                <img src={imc} className="nav-title" />
+                <h3>Sign up</h3>
+
                     <input
                         onChange={this.handleChange}
                         value={this.state.username}

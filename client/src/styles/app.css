@@ -11,11 +11,12 @@
   
 .app-wrapper{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: left;
-    min-height: 100vh;
+    text-align: center;
+    min-height: vh;
     background: var(--mainBlue) !important;
     color:  var(--mainDark) !important;
 }

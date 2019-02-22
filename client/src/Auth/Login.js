@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withSearchContext } from '../SearchProvider';
+import imc from '../images/UofU.jpg'
 
 class LoginForm extends Component {
     constructor() {
@@ -41,7 +42,10 @@ class LoginForm extends Component {
         return (
             <div className="form-wrapper">
                 <form onSubmit={this.handleSubmit}>
+                <img src={imc} className="nav-title" />
                     <h3>Log In</h3>
+                    
+                    
                     <input
                         onChange={this.handleChange}
                         value={this.state.username}
